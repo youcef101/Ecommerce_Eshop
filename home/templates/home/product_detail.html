@@ -1,0 +1,281 @@
+{% extends 'home/base.html' %}
+
+{% block title %} {{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% block navbar %} {% include 'home/navbar.html' %} {% endblock %}
+
+
+{% load static %}
+{% block content %}
+<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				
+				<li><a href="/category/{{ product.category.id }}/{{ product.category.slug }}">{{ product.category.title }}</a></li>
+                <li class="active">{{ product.title }}</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!--  Product Details -->
+				<div class="product product-details clearfix">
+					<div class="col-md-6">
+
+
+						<div id="product-main-view">
+                            {% for item in image %}
+							<div class="product-view">
+								<img src="{{item.image.url}}" alt="">
+							</div>
+						{% endfor %}
+						</div>
+
+						<div id="product-view">
+                             {% for item in image %}
+							<div class="product-view">
+								<img src="{{item.image.url}}" alt="" >
+							</div>
+							{% endfor %}
+						</div>
+
+                        
+					</div>
+
+
+
+					<div class="col-md-6">
+						<div class="product-body">
+                            
+							<div class="product-label">
+								
+								<span>New</span>
+								
+                               
+								<span class="sale">-20%</span>
+                               
+							</div>
+
+							<h2 class="product-name">{{product.title}}</h2>
+							<h3 class="product-price">${{product.price}} <del class="product-old-price">$45.00</del></h3>
+							<div>
+								<div class="product-rating">
+								<i class="fa fa-star{% if product.avaregereview < 1%}-o empty{% endif%}"></i>
+                                <i class="fa fa-star{% if product.avaregereview < 2%}-o empty{% endif%}"></i>
+                                <i class="fa fa-star{% if product.avaregereview < 3%}-o empty{% endif%}"></i>
+                                <i class="fa fa-star{% if product.avaregereview < 4%}-o empty{% endif%}"></i>
+                                <i class="fa fa-star{% if product.avaregereview < 5%}-o empty{% endif%}"></i>
+                                {{ product.avaregereview}}/{{ product.countreview}}
+								</div>
+								<a href="#tab2">{{ product.countreview}} Review(s) / Add Review</a>
+							</div>
+							<p><strong>Availability:</strong> In Stock</p>
+							<p><strong>Brand:</strong> E-SHOP</p>
+							<p>{{product.description}}</p>
+							<div class="product-options">
+								<ul class="size-option">
+									<li><span class="text-uppercase">Size:</span></li>
+									<li class="active"><a href="#">S</a></li>
+									<li><a href="#">XL</a></li>
+									<li><a href="#">SL</a></li>
+								</ul>
+								<ul class="color-option">
+									<li><span class="text-uppercase">Color:</span></li>
+									<li class="active"><a href="#" style="background-color:#475984;"></a></li>
+									<li><a href="#" style="background-color:#8A2454;"></a></li>
+									<li><a href="#" style="background-color:#BF6989;"></a></li>
+									<li><a href="#" style="background-color:#9A54D8;"></a></li>
+								</ul>
+							</div>
+
+							<div class="product-btns">
+							<form action="{% url 'cart:addtoshopcart' product.id %}" method="POST">
+							{% csrf_token %}
+								<div class="qty-input">
+									<span class="text-uppercase">QTY: </span>
+									<input name="quantity" value="1" min="1" max="{{product.amount}}" class="input" type="number">
+								</div>
+								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+								</form>
+								<div class="pull-right">
+									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+									<button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
+								</div>
+							</div>
+                          
+						</div>
+					</div>
+
+
+
+
+
+					<div class="col-md-12">
+						<div class="product-tab">
+							<ul class="tab-nav">
+								
+								<li><a data-toggle="tab"  href="#tab0">Details</a></li>
+								<li><a data-toggle="tab"  href="#tab2">Reviews ({{ product.countreview}} )</a></li>
+							</ul>
+							<div class="tab-content">
+								
+                                <div id="tab0" class="tab-pane fade in ">
+									<p>{{ product.detail |safe }}</p>
+								</div>
+								<div id="tab2" class="tab-pane fade in">
+
+									<div class="row">
+										<div class="col-md-6">
+											<div class="product-reviews">
+												<!--single review-->
+												{% for item in comment %}
+												<div class="single-review">
+													<div class="review-heading">
+														<div><a href="#"><i class="fa fa-user-o"></i> {{item.user}}</a></div>
+														<div><b>{{ item.subject }}</b> </div>
+														<div><a href="#"><i class="fa fa-clock-o"></i> {{item.create_at}}</a></div>
+														<div class="review-rating pull-right">
+														<i class="fa fa-star{% if item.rate < 1 %}-o empty{% endif %}"></i>
+                                                        <i class="fa fa-star{% if item.rate < 2 %}-o empty{% endif %}"></i>
+                                                        <i class="fa fa-star{% if item.rate < 3 %}-o empty{% endif %}"></i>
+                                                        <i class="fa fa-star{% if item.rate < 4 %}-o empty{% endif %}"></i>
+                                                        <i class="fa fa-star{% if item.rate < 5 %}-o empty{% endif %}"></i>
+														</div>
+													</div>
+													<div class="review-body">
+														<p>{{item.comment}}</p>
+													</div>
+												</div>
+												{% endfor %}
+												<!--single review-->
+
+												<ul class="reviews-pages">
+													<li class="active">1</li>
+													<li><a href="#">2</a></li>
+													<li><a href="#">3</a></li>
+													<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<h4 class="text-uppercase">Write Your Review</h4>
+											{% if messages %}
+                                            {% for message in messages %}
+                                            <div class="alert alert-{{message.tags}}" role="alert">
+                                                {{ message }}
+                                            </div>
+                                            {% endfor %}
+                                              {% endif %}
+											
+											<form class="review-form" action="{% url 'product:addcomment' product.id %}" method="POST">
+												{% csrf_token %}
+												<div class="form-group">
+													<input name="subject" class="input" type="text" placeholder="Your subject" />
+												</div>
+												
+												<div class="form-group">
+													<textarea name="comment" class="input" placeholder="Your comment"></textarea>
+												</div>
+												<div class="form-group">
+													<div class="input-rating">
+														<strong class="text-uppercase">Your Rating: </strong>
+														<div class="stars">
+															<input type="radio" id="star5" name="rate" value="5" /><label for="star5"></label>
+															<input type="radio" id="star4" name="rate" value="4" /><label for="star4"></label>
+															<input type="radio" id="star3" name="rate" value="3" /><label for="star3"></label>
+															<input type="radio" id="star2" name="rate" value="2" /><label for="star2"></label>
+															<input type="radio" id="star1" name="rate" value="1" /><label for="star1"></label>
+														</div>
+													</div>
+												</div>
+												{% if user.id is not None %}
+												<button class="primary-btn">Submit</button>
+												{% else %}
+                                                    You must be logged in to post a review
+                                                {% endif %}
+											</form>
+										</div>
+									</div>
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- /Product Details -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+
+
+
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- section title -->
+				<div class="col-md-12">
+					<div class="section-title">
+						<h2 class="title">Related products</h2>
+					</div>
+				</div>
+				<!-- section title -->
+                 {% for item in related_product %}
+				<!-- Product Single -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="product product-single">
+						<div class="product-thumb">
+							<a href="{% url 'home:product_detail' item.id item.slug %}" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
+							<img src="{{item.image.url}}" alt="" style="height: 200px">
+						</div>
+						<div class="product-body">
+							<h3 class="product-price">${{item.price}}</h3>
+							<div class="product-rating">
+								<i class="fa fa-star{% if item.avaregereview < 1%}-o empty{% endif%}"></i>
+                                <i class="fa fa-star{% if item.avaregereview < 2%}-o empty{% endif%}"></i>
+                                <i class="fa fa-star{% if item.avaregereview < 3%}-o empty{% endif%}"></i>
+                                <i class="fa fa-star{% if item.avaregereview < 4%}-o empty{% endif%}"></i>
+                                <i class="fa fa-star{% if item.avaregereview < 5%}-o empty{% endif%}"></i>
+                                {{ item.avaregereview}}/{{ item.countreview}}
+							</div>
+							<h2 class="product-name"><a href="#">{{item.title}}</a></h2>
+							<div class="product-btns">
+								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Product Single -->
+                {% endfor %}
+
+				
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+{% endblock %}

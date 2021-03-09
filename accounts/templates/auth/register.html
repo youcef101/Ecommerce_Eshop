@@ -1,0 +1,78 @@
+{% extends 'home/base.html' %}
+{% block navbar %} {% include 'home/navbar.html' %} {% endblock %}
+{% load static %}
+{% block content %}
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">Sign Up </li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+
+                <div class="col-md-5">
+                    <div class="billing-details">
+
+                        <div class="section-title">
+                            <h3 class="title">Sign Up </h3>
+                            {% if messages %}
+                                            {% for message in messages %}
+                                            <div class="alert alert-{{message.tags}}" role="alert">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                {% endif %}
+                        </div>
+
+                        
+
+                        <form method="POST">
+                           {% csrf_token %} 
+                             <div class="form-group">
+								<input class="input" type="text" name="username" placeholder="UserName">
+							</div>
+                           <div class="form-group">
+								<input class="input" type="text" name="first_name" placeholder="First Name">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="last_name" placeholder="Last Name">
+							</div>
+							<div class="form-group">
+								<input class="input" type="email" name="email" placeholder="Email">
+							</div>
+							<div class="form-group">
+								<input class="input" type="password" name="password1" placeholder="Your Password">
+							</div>
+							<div class="form-group">
+								<input class="input" type="password" name="password2" placeholder="Confirm Your Password">
+							</div>
+							
+                            <button class="primary-btn">Submit</button>
+							<p>Already have an account?<a href="{% url 'accounts:login' %}">Login</a></P>
+                        </form>
+
+
+
+                    </div>
+                </div>
+
+
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+{% endblock %}

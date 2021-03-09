@@ -1,0 +1,25 @@
+{% extends 'home/base.html' %}
+
+{% block navbar %} {% include 'home/navbar.html' %} {% endblock %}
+
+
+{% load static %}
+{% block content %}
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+
+         {{setting.aboutus|safe}}
+
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+	{% endblock %}

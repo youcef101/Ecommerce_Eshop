@@ -1,0 +1,68 @@
+{% extends 'home/base.html' %}
+
+
+{% block navbar %} {% include 'home/navbar.html' %} {% endblock %}
+
+{% block content %}
+
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li class="active">Order List</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /BREADCRUMB -->
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "auth/user_panel.html" %}
+                </div>
+
+                <div class="col-md-9">
+                    <div class="order-summary clearfix">
+                        <div class="section-title">
+                            <h3 class="title">Order List</h3>
+                        </div>
+                        <table class="shopping-cart-table table">
+                            <tr>
+                                <th class="text-left">Id </th>
+                                <th class="text-left">First Name </th>
+                                <th class="text-left">Last Name </th>
+                                <th class="text-left">Total </th>
+                                <th class="text-left">Status </th>
+                                <th class="text-left">Date </th>
+                                <th class="text-left">Detail </th>
+                            </tr>
+                            {% for item in order %}
+                                <tr>
+                                    <td class="text-left">{{ item.id}} </td>
+                                    <td class="text-left">{{ item.first_name}} </td>
+                                    <td class="text-left">{{ item.last_name}} </td>
+                                    <td class="text-left">{{ item.total}} </td>
+                                    <td class="text-left">{{ item.status}} </td>
+                                    <td class="text-left">{{ item.create_at}} </td>
+                                    <td class="text-left"><a class="primary-btn" href="{% url 'accounts:user_order_detail' item.id %}"> Detail </a></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+
+{% endblock %}

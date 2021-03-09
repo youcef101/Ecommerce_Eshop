@@ -1,0 +1,35 @@
+
+{%  load static %}
+<!-- HOME -->
+	<div id="home">
+		<!-- container -->
+		<div class="container">
+			<!-- home wrap -->
+			<div class="home-wrap">
+				<!-- home slick -->
+				<div id="home-slick">
+
+               {% for item in  product_slider %}
+					<!-- banner -->
+					<div class="banner banner-1">
+						<img src="{{item.image.url}}" alt=""  width="450" height="450">
+						<div class="banner-caption text-center">
+							<!-- <h1 class="white-color font-weak">{{item.title}}</h1> -->
+							<h3 class="white-color font-weak">${{item.price}}</h3>
+							<a href="{% url 'home:product_detail' item.id item.slug %}"><button class="primary-btn">Shop Now</button></a>
+						</div>
+					</div>
+					<!-- /banner -->
+
+				{% endfor %}
+
+					
+				</div>
+				<!-- /home slick -->
+			</div>
+			<!-- /home wrap -->
+		</div>
+		<!-- /container -->
+	</div>
+    <!-- /HOME -->
+   

@@ -1,0 +1,120 @@
+{% extends 'home/base.html' %}
+
+{% block title %} {{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% block navbar %} {% include 'home/navbar.html' %} {% endblock %}
+
+
+{% load static %}
+{% block content %}
+<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">{{ query }} results</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+
+				<!-- MAIN -->
+				<div id="main" class="col-md-12">
+					<!-- STORE -->
+					<div id="store">
+						<!-- row -->
+						<div class="row">
+                        <div class="col-md-12">
+						<div class="order-summary clearfix">
+							<div class="section-title">
+								<h3 class="title">search result</h3>
+							</div>
+							<table class="shopping-cart-table table">
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th></th>
+										<th class="text-center">Price</th>
+										<th class="text-center">category</th>
+										<th class="text-center">quantity</th>
+										<th class="text-right"></th>
+									</tr>
+								</thead>
+								<tbody>
+                                {% for item in product %}
+									<tr>
+										<td class="thumb"><a href="{% url 'home:product_detail' item.id  item.slug %}"><img src="{{item.image.url}}" alt="" style="height:100px"></a></td>
+										<td class="details">
+											<a href="#">{{item.title}}</a>
+											<ul>
+												<li><span>Size: XL</span></li>
+												<li><span>Color: Camelot</span></li>
+											</ul>
+										</td>
+										<td class="price text-center"><strong>{{item.price}}</strong><br><del class="font-weak"><small>$40.00</small></del></td>
+										<td class="qty text-center">*********</td>
+										<td class="total text-center"><strong class="primary-color">{{item.amount}}</strong></td>
+										
+									</tr>
+                                    {% endfor %}
+									
+								</tbody>
+                            </table>
+                        </div>
+                </div>
+                </div>
+                </div>
+                <!-- store bottom filter -->
+					<div class="store-filter clearfix">
+						<div class="pull-left">
+							<div class="row-filter">
+								<a href="#"><i class="fa fa-th-large"></i></a>
+								<a href="#" class="active"><i class="fa fa-bars"></i></a>
+							</div>
+							<div class="sort-filter">
+								<span class="text-uppercase">Sort By:</span>
+								<select class="input">
+										<option value="0">Position</option>
+										<option value="0">Price</option>
+										<option value="0">Rating</option>
+									</select>
+								<a href="#" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></a>
+							</div>
+						</div>
+						<div class="pull-right">
+							<div class="page-filter">
+								<span class="text-uppercase">Show:</span>
+								<select class="input">
+										<option value="0">10</option>
+										<option value="1">20</option>
+										<option value="2">30</option>
+									</select>
+							</div>
+							<ul class="store-pages">
+								<li><span class="text-uppercase">Page:</span></li>
+								<li class="active">1</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- /store bottom filter -->
+				</div>
+				<!-- /MAIN -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+    {% endblock %}

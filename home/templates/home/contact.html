@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+
+{% block navbar %} {% include 'home/navbar.html' %} {% endblock %}
+
+
+{% load static %}
+{% block content %}
+<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<form id="checkout-form" class="clearfix" action="{% url 'home:contact' %}" method="POST">
+				{% csrf_token %} 
+					<div class="col-md-6">
+						<div class="billing-details">
+							
+							<div class="section-title">
+								<h3 class="title">Contact us</h3>
+								{% if messages %}
+                                            {% for message in messages %}
+                                            <div class="alert alert-{{message.tags}}" role="alert">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                {% endif %}
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="name" placeholder="your Name">
+							</div>
+							
+							<div class="form-group">
+								<input class="input" type="email" name="email" placeholder="your Email">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="subject" placeholder="your Subject">
+							</div>
+							<div class="form-group">
+							<textarea name="message" class="input" placeholder="your Message"></textarea>
+							</div>
+							
+							<button class="primary-btn">Submit</button>
+						</div>
+					</div>
+                    
+
+					<div class="col-md-6">
+						<div class="shiping-methods">
+							<div class="section-title">
+								<h4 class="title">Contact us</h4>
+							</div>
+							{{setting.contact|safe}}
+						</div>
+					</div>
+                    </form>
+</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+    {% endblock %}
